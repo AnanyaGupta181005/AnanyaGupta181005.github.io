@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ananya Gupta — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: linear-gradient(180deg,#fffdfc,#f5f5ff);
+      --bg-dark: linear-gradient(180deg,#1d1a27,#2d2538);
+      --text-light: #222;
+      --text-dark: #f0f0f0;
+      --accent-light: #6a2c91;
+      --accent-dark: #d493ff;
+      --card-light: #fff;
+      --card-dark: #2d2940;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:Poppins,sans-serif;scroll-behavior:smooth;overflow-x:hidden;background:var(--bg-light);color:var(--text-light);transition:background .5s,color .5s;}
+
+    body.dark{background:var(--bg-dark);color:var(--text-dark);}
+
+  header{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding-bottom:120px;}
+  header::before{content:"";position:absolute;inset:0;background:conic-gradient(from 0deg,#ffb6c1,#b19cd9,#fbd786,#ffb6c1);filter:blur(90px);opacity:0.2;animation:rotate 30s linear infinite;z-index:-2;}
+    @keyframes rotate{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+
+    h1{font-family:'Playfair Display',serif;font-size:3.2rem;color:var(--accent-light);animation:slideIn 1s ease-out forwards;}
+    .dark h1{color:var(--accent-dark);}
+    .tagline{font-size:1.2rem;color:#8a7ba8;margin-top:10px;animation:fadeIn 2s ease forwards;}
+
+    nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.8);backdrop-filter:blur(8px);border-radius:40px;box-shadow:0 4px 20px rgba(0,0,0,0.08);padding:8px 20px;z-index:99;display:flex;gap:20px;align-items:center;}
+    .dark nav{background:rgba(40,35,60,0.8);}
+    nav a{text-decoration:none;color:inherit;font-weight:600;transition:.3s;}
+    nav a:hover{color:var(--accent-light);}
+
+    .theme-toggle{cursor:pointer;font-size:1rem;padding:6px 12px;border-radius:20px;background:var(--accent-light);color:white;border:none;transition:.4s;}
+    .theme-toggle:hover{transform:scale(1.05);}
+    .dark .theme-toggle{background:var(--accent-dark);color:#1d1a27;}
+
+    section{max-width:1000px;margin:80px auto;padding:40px;background:var(--card-light);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.05);opacity:0;transform:translateY(30px);transition:opacity 1s,transform 1s;}
+    .dark section{background:var(--card-dark);}
+    section.visible{opacity:1;transform:translateY(0);}
+
+    section h2{font-family:'Playfair Display',serif;font-size:2rem;color:var(--accent-light);margin-bottom:10px;position:relative;}
+    .dark section h2{color:var(--accent-dark);}
+    section h2::after{content:"";position:absolute;left:0;bottom:-5px;width:60px;height:4px;background:linear-gradient(90deg,var(--accent-light),#ff9a9e);border-radius:4px;}
+
+    .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:20px;}
+    .card{background:linear-gradient(180deg,#fff,#fefaff);padding:20px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,0.05);transition:transform .6s ease,box-shadow .6s ease;}
+    .dark .card{background:linear-gradient(180deg,#2b263b,#332b4c);box-shadow:0 6px 20px rgba(0,0,0,0.4);}
+    .card:hover{transform:translateY(-10px) rotateX(5deg) rotateY(-5deg);box-shadow:0 16px 40px rgba(0,0,0,0.1);}
+
+    .project img{width:100%;border-radius:14px;margin-bottom:10px;animation:float 6s ease-in-out infinite alternate;}
+    @keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
+
+    @keyframes slideIn{0%{opacity:0;transform:translateY(40px);}100%{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+    footer{text-align:center;padding:30px 0;font-size:0.9rem;opacity:0.8;}
+    /* AI/ML dynamic background canvas */
+    #ai-bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:block}
+
+    @media (prefers-reduced-motion: reduce) {
+      #ai-bg{opacity:0.9}
+    }
+  /* Photo section styles */
+  .photo-wrap{position:relative;width:90%;max-width:980px;margin:18px auto 0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px}
+  .photo-wrap.header-photo{max-width:1100px}
+  .photo-bg{position:absolute;left:50%;transform:translateX(-50%) translateY(0);width:100%;height:260px;border-radius:16px;filter:blur(14px);background-image:linear-gradient(135deg,rgba(106,160,255,0.18),rgba(255,180,160,0.12));z-index:0}
+  .header-photo .photo-bg{height:320px}
+  .photo-circle{width:220px;height:220px;border-radius:50%;overflow:hidden;border:8px solid rgba(255,255,255,0.95);box-shadow:0 18px 50px rgba(16,24,40,0.18);background:linear-gradient(180deg,#fff,#f2f7ff);position:relative;z-index:2;margin-top:0}
+    .dark .photo-circle{border-color:rgba(20,18,30,0.7);background:linear-gradient(180deg,#26212f,#2b2940)}
+    .photo-circle img{width:100%;height:100%;object-fit:cover;display:block}
+
+  </style>
+</head>
+<body>
+  <canvas id="ai-bg" aria-hidden="true"></canvas>
+  <nav>
+    <a href="#intro">Intro</a>
+    <a href="#resume">Resume</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#ethics">Ethics</a>
+    <a href="#future">Future</a>
+    <button class="theme-toggle" onclick="toggleTheme()">🌞</button>
+  </nav>
+
+  <header>
+    <h1>Ananya Gupta</h1>
+    <div class="tagline">Learning beyond boundaries — where curiosity meets creation.</div>
+
+    <!-- Photo placed at the top inside header -->
+    <div class="photo-wrap header-photo">
+      <div class="photo-bg" id="photo-bg" style="background-image: url('photo-bg.jpg'); background-size: cover; background-position: center;"></div>
+      <div style="text-align:center;position:relative;z-index:2;margin-bottom:10px;font-weight:700;font-size:1.05rem;color:inherit"></div>
+      <div class="photo-circle" id="photo-circle" aria-hidden="false">
+        <img src="C:\Users\Ananya\Pictures\Screenshots\Digi.jpg" alt="Ananya Gupta portrait">
+      </div>
+    </div>
+  </header>
+
+  <section id="intro">
+    <h2>Introduction & Learning Philosophy</h2>
+    <p>Creative and analytical mind with strong foundations in data science, programming, and graphic design. My philosophy revolves around curiosity, collaboration, and creativity. I believe in connecting disciplines to create meaningful, ethical technology for diverse communities.</p>
+  </section>
+
+  <section id="resume">
+    <h2>Resume Snapshot</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Education</h3>
+        <p>B.Tech — Computer Science & Engineering<br>Pandit Deendayal Energy University, CGPA 9.13 (2027 Expected)</p>
+        <p>12th — RMG Maheshwari English School, Surat (86%)</p>
+      </div>
+      <div class="card">
+        <h3>Experience</h3>
+        <ul>
+          <li>Founding Partner — Tatvam AI</li>
+          <li>President & Design Head — Society of Mathematics Club</li>
+          <li>CSSI Intern — Ladki Balikashram, Surat</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Interdisciplinary Projects</h2>
+    <div class="grid-2">
+      <div class="card project">
+        <h3>AI Mental Health Chatbot</h3>
+        <p>Built an NLP-based chatbot using Python and TensorFlow. Combined psychology and computer science to support emotional well-being.</p>
+      </div>
+      <div class="card project">
+        <h3>Smart Waste Management System</h3>
+        <p>Created an IoT-based waste detection system improving efficiency via Arduino and cloud monitoring.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Advanced Skills</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Technical</h3>
+        <ul>
+          <li>Python, C, Java, HTML, CSS</li>
+          <li>MySQL, MongoDB</li>
+          <li>Photoshop, Canva, Figma</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Soft Skills</h3>
+        <p>Leadership, teamwork, and creative problem-solving shown through club leadership and volunteer roles.</p>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <section id="leadership">
+    <h2>Leadership & Collaboration</h2>
+    <p>As President of the Mathematics Club, I led event design, mentorship, and outreach. At Ladki Balikashram, I taught digital literacy to empower young girls, integrating empathy and patience into teaching.</p>
+  </section>
+
+  <section id="ethics">
+    <h2>Global Awareness & Ethics</h2>
+    <p>In developing voice systems, I faced challenges in data privacy and bias. I implemented anonymization and fairness protocols to ensure inclusive, responsible AI systems.</p>
+  </section>
+
+  <section id="future">
+    <h2>Future Aspirations</h2>
+    <p>I aim to blend AI and HCI research to create inclusive voice technologies. My long-term goal is to pursue research, publishing, and mentoring to promote empathy in innovation.</p>
+  </section>
+
+  <footer>
+    © 2025 Ananya Gupta — Designed with passion and purpose.
+  </footer>
+
+  <script>
+    // Reveal animation on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+
+    // Theme toggle
+    function toggleTheme(){
+      document.body.classList.toggle('dark');
+      const btn = document.querySelector('.theme-toggle');
+      btn.textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
+    }
+
+    /* TV-style cartoon background animation */
+    (function(){
+      const canvas = document.getElementById('ai-bg');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = 0, height = 0, dpi = window.devicePixelRatio || 1;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // simple mascot sprite (drawn procedurally)
+      function drawMascot(ctx, x, y, t){
+        // body
+        ctx.save();
+        ctx.translate(x,y);
+        const bob = Math.sin(t*2) * 4;
+        ctx.translate(0,bob);
+        // shadow
+        ctx.fillStyle = 'rgba(0,0,0,0.12)';
+        ctx.beginPath(); ctx.ellipse(6,22,18,6,0,0,Math.PI*2); ctx.fill();
+
+        // head
+        ctx.fillStyle = '#ffd36b'; ctx.beginPath(); ctx.arc(0,0,12,0,Math.PI*2); ctx.fill();
+        // eye
+        ctx.fillStyle = '#2f2f2f'; ctx.beginPath(); ctx.arc(-4,-2,2.2,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(-3.2,-2.6,0.7,0,Math.PI*2); ctx.fill();
+        // smile
+        ctx.strokeStyle = '#6b3a00'; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(0,2,5,0.15*Math.PI,0.85*Math.PI); ctx.stroke();
+
+        // body
+        ctx.fillStyle = '#6aa0ff'; ctx.beginPath(); ctx.roundRect(-10,12,20,18,6); ctx.fill();
+
+        // small antenna
+        ctx.strokeStyle = '#ff6b6b'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(6,-10); ctx.lineTo(10,-18); ctx.stroke();
+        ctx.fillStyle='#ff6b6b'; ctx.beginPath(); ctx.arc(10,-18,3,0,Math.PI*2); ctx.fill();
+
+        ctx.restore();
+      }
+
+      // polyfill roundRect for older browsers
+      if(!CanvasRenderingContext2D.prototype.roundRect){
+        CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r){
+          if(typeof r === 'undefined') r = 6;
+          this.beginPath();
+          this.moveTo(x+r,y);
+          this.arcTo(x+w,y,x+w,y+h,r);
+          this.arcTo(x+w,y+h,x,y+h,r);
+          this.arcTo(x,y+h,x,y,r);
+          this.arcTo(x,y,x+w,y,r);
+          this.closePath();
+        };
+      }
+
+      function resize(){
+        dpi = window.devicePixelRatio || 1;
+        width = canvas.clientWidth;
+        height = canvas.clientHeight;
+        canvas.width = Math.floor(width * dpi);
+        canvas.height = Math.floor(height * dpi);
+        ctx.setTransform(dpi,0,0,dpi,0,0);
+      }
+
+      function drawCRTBackground(t){
+        // subtle vignette
+        const grad = ctx.createRadialGradient(width*0.5,height*0.4,0,width*0.8,height*0.8,Math.max(width,height));
+        grad.addColorStop(0, 'rgba(10,14,23,0.02)');
+        grad.addColorStop(1, 'rgba(0,0,0,0.06)');
+        ctx.fillStyle = grad; ctx.fillRect(0,0,width,height);
+
+        // TV frame - soft rectangle in center (cover only header area visually)
+        const frameW = Math.min(width*0.86, 1200);
+        const frameH = Math.min(height*0.62, 700);
+        const fx = (width - frameW)/2; const fy = (height - frameH)/2 - 30;
+        ctx.fillStyle = 'rgba(5,8,12,0.12)'; ctx.roundRect(fx-12,fy-12,frameW+24,frameH+24,18); ctx.fill();
+        ctx.fillStyle = 'rgba(240,240,245,0.02)'; ctx.roundRect(fx,fy,frameW,frameH,12); ctx.fill();
+
+        // scanlines
+        ctx.globalCompositeOperation = 'overlay';
+        ctx.fillStyle = 'rgba(0,0,0,0.02)';
+        for(let y=fy; y<fy+frameH; y+=2.6){ ctx.fillRect(fx, y, frameW, 1); }
+        ctx.globalCompositeOperation = 'source-over';
+
+        // subtle static noise (low alpha)
+        for(let i=0;i<80;i++){
+          const sx = fx + Math.random()*frameW;
+          const sy = fy + Math.random()*frameH;
+          ctx.fillStyle = `rgba(255,255,255,${0.008 * Math.random()})`;
+          ctx.fillRect(sx,sy,1,1);
+        }
+
+        return {fx,fy,frameW,frameH};
+      }
+
+      function loopFactory(){
+        let start = performance.now();
+        let mascotX = -60; // starts off screen
+        const speed = 40; // px per second
+
+        function frame(now){
+          const t = (now - start)/1000;
+          ctx.clearRect(0,0,width,height);
+          const {fx,fy,frameW,frameH} = drawCRTBackground(t);
+
+          // mascot movement across the frame
+          const travelW = frameW + 140;
+          mascotX = ((t * speed) % (travelW)) - 70 + fx;
+          const mascotY = fy + frameH*0.62;
+
+          // draw mascot
+          drawMascot(ctx, mascotX, mascotY, t);
+
+          // cute speech bubble occasionally
+          if(Math.floor(t) % 6 < 2){
+            ctx.fillStyle = 'rgba(255,255,255,0.9)'; ctx.roundRect(mascotX+22, mascotY-48, 90, 34, 8); ctx.fill();
+            ctx.fillStyle = '#222'; ctx.font = '12px Poppins, sans-serif'; ctx.fillText('Hi! I ♥ AI', mascotX+32, mascotY-28);
+          }
+
+          // small chromatic aberration on edges
+          ctx.save(); ctx.globalAlpha = 0.04; ctx.fillStyle = '#ff6b6b'; ctx.fillRect(fx, fy, 6, frameH); ctx.fillStyle = '#6aa0ff'; ctx.fillRect(fx+frameW-6, fy, 6, frameH); ctx.restore();
+
+          if(!reduced) requestAnimationFrame(frame);
+        }
+        return frame;
+      }
+
+      // kick things off
+      resize();
+      if(!reduced) requestAnimationFrame(loopFactory());
+
+      // handle resize
+      window.addEventListener('resize', debounce(resize, 200));
+      function debounce(fn, t){ let to; return (...a)=>{ clearTimeout(to); to = setTimeout(()=>fn(...a), t); }; }
+
+      // cleanup
+      window.__aiBgCleanup = ()=>{ window.removeEventListener('resize', resize); };
+    })();
+
+    // Photo section parallax: background moves up when page scrolls down
+    (function(){
+    const bg = document.getElementById('photo-bg');
+    // target header photo if present, otherwise fallback to #photo section
+    const section = document.querySelector('.header-photo') || document.getElementById('photo');
+    if(!bg || !section) return;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
+    let sectionH = section.offsetHeight;
+      const factor = 0.18; // how strongly background moves relative to scroll
+      let raf = null;
+
+      function update(){
+        raf = null;
+        if(reduced) return;
+        const scrollY = window.scrollY || window.pageYOffset;
+        let offset = (scrollY - sectionTop) * factor;
+        const limit = sectionH * 0.6;
+        if(offset > limit) offset = limit;
+        if(offset < -limit) offset = -limit;
+        // negative so when user scrolls down (scrollY increases) bg translates up
+        bg.style.transform = `translateY(${ -offset }px)`;
+      }
+
+      function queueUpdate(){ if(raf) return; raf = requestAnimationFrame(update); }
+
+    function onResize(){ sectionTop = section.getBoundingClientRect().top + window.pageYOffset; sectionH = section.offsetHeight; queueUpdate(); }
+
+      window.addEventListener('scroll', queueUpdate, { passive: true });
+      window.addEventListener('resize', debounce(onResize, 150));
+      // initial
+      onResize();
+
+      function debounce(fn, t){ let to; return (...a)=>{ clearTimeout(to); to = setTimeout(()=>fn(...a), t); }; }
+    })();
+
+    // Mouse-linked parallax inside the photo area
+    (function(){
+      const circle = document.getElementById('photo-circle');
+      const bg = document.getElementById('photo-bg');
+      if(!circle || !bg) return;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduced) return;
+
+      let rect = circle.getBoundingClientRect();
+      function onMove(e){
+        const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        const maxTilt = 6; // degrees
+        const tx = -x * 10; // background translate (opposite dir)
+        const ty = -y * 10;
+        bg.style.transform = `translateY(${bg.style.transform.includes('translateY')? bg.style.transform.match(/translateY\(([^)]+)\)/)?.[1] : '0px'}) translateX(${tx}px) translateY(${ty}px)`;
+        circle.style.transform = `perspective(600px) rotateX(${y * maxTilt}deg) rotateY(${-x * maxTilt}deg)`;
+      }
+
+      function onEnter(){ rect = circle.getBoundingClientRect(); }
+      function onLeave(){ bg.style.transform = bg.style.transform.replace(/translateX\([^)]*\)\s*translateY\([^)]*\)/,''); circle.style.transform = ''; }
+
+      circle.addEventListener('mousemove', onMove);
+      circle.addEventListener('mouseenter', onEnter);
+      circle.addEventListener('mouseleave', onLeave);
+      window.addEventListener('resize', ()=>{ rect = circle.getBoundingClientRect(); });
+    })();
+  </script>
+</body>
+</html>
